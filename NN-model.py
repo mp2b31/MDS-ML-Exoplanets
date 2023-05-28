@@ -7,6 +7,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, f1_score, make_scorer
 
+
 random_seed = 19950516-19933103
 np.random.seed(random_seed)
 
@@ -105,7 +106,9 @@ def build_binary_classification_model(input_shape):
     model.add(Dense(64, activation='tanh', input_shape=input_shape))
     
     # Add hidden layers
+    model.add(Dense(84, activation='tanh'))
     model.add(Dense(128, activation='tanh'))
+    model.add(Dense(2, activation='tanh'))
     model.add(Dense(64, activation='tanh'))
     
     # Add output layer
