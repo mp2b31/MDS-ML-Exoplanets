@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.models import Sequential
 
@@ -6,6 +8,8 @@ import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, f1_score, make_scorer
+
+from keras.utils.vis_utils import plot_model
 
 
 random_seed = 19950516-19933103
@@ -134,6 +138,9 @@ y = y_train.cat.codes.values
 #model = KerasClassifier(model=build_binary_classification_model,epoch=100, batch_size=5, verbose=1)
 model = build_binary_classification_model(input_shape)
 model.fit(X, y, epochs=50, batch_size=36)
+
+# Plot NN architecture
+#plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True, show_layer_activations=True)
 
 predictions = model.predict(X_test.astype(float).values).round(0)
 print(classification_report(y_test.cat.codes.values, predictions))
