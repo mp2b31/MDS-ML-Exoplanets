@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, make_scorer
+from sklearn.metrics import f1_score, make_scorer, confusion_matrix
+from sklearn.model_selection import GridSearchCV
+
 
 random_seed = 19950516-19933103
 np.random.seed(random_seed)
@@ -211,3 +215,10 @@ def fine_tune_model(model, param_grid, X, y, cv=5):
 
     # Return the best model obtained
     return grid_search.best_estimator_
+
+def plot_confusion_matrix(y_test,y_predict):
+    sns.heatmap(confusion_matrix(y_test,y_predict),annot=True,fmt='.0f',cmap="crest",cbar=False,)
+    _ = plt.xlabel('Predicted labels')
+    _ = plt.ylabel('True labels')
+    _ = plt.gca().xaxis.set_ticklabels(['CANDIDATE', 'CONFIRMED'])
+    _ = plt.gca().yaxis.set_ticklabels(['CANDIDATE', 'CONFIRMED'])
